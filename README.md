@@ -1,5 +1,7 @@
 # Bitcoin Transactions
 
+Docs: [Bitcoin Sv](https://wiki.bitcoinsv.io/index.php/Bitcoin_Transactions)
+
 ## Consistency
 
 1. **Version Number**: This field indicates the version of the transaction format, used in the interpretation of the transaction.
