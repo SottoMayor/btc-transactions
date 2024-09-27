@@ -26,6 +26,7 @@ Transfer of custody.
    - **Example**: Imagine Alice and Bob are at a park and decide to play a game of dice. They agree to play 10 rounds and create a payment channel with 10 BTC. After each round, they simply note who won, without making transactions. At the end, Alice won 6 times and Bob 4. They make a single transaction to the network, where Alice receives 6 BTC and Bob receives 4 BTC, saving on fees and time.
 
 2. **Bitcoin Network**
+   - Direct transmission from a node to a block
 
 
 ## Transactions are not encrypted
