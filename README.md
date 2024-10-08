@@ -61,3 +61,45 @@ It is possible to browse and view every transaction ever collected into a block.
    1. ScriptSig must satisfy the "condition" defined by the ScriptPubKey for the custody transfer of bitcoin to occur.
    2. Most common is a ScriptPubKey that requires a public key and a digital signature to unlock the funds.
 
+## Serialized Bitcoin Transaction
+
+### Elements
+
+| Field        | Description                                                                                 | Size               |
+|--------------|---------------------------------------------------------------------------------------------|--------------------|
+| **Version no**   | Indicates the version of the transaction format.                              | 4 bytes            |
+| **In-counter**   | A positive integer that represents the number of inputs, encoded as a VarInt (variable length integer). | 1 - 9 bytes        |
+| **List of inputs** | A list of input structures, each with variable length based on the number of inputs (`<in-counter>`).  | Variable           |
+| **Out-counter**  | A positive integer that represents the number of outputs, also encoded as a VarInt.       | 1 - 9 bytes        |
+| **List of outputs** | A list of output structures, each with variable length based on the number of outputs (`<out-counter>`). | Variable           |
+| **nLocktime** | The block height* or timestamp when the transaction is final. | 4 bytes            |
+
+_*: represents the block's position in the blockchain. Ex: genesis block has block height of 0._
+
+### Format of a Transaction Input (TXIN)
+
+| Field                     | Description                                                                         | Size               |
+|----------------------------|-------------------------------------------------------------------------------------|--------------------|
+| **Previous Transaction hash** | The TXID* of the transaction where the referenced output was created. | 32 bytes           |
+| **Previous Txout-index**      | Index of the output in the previous transaction (a non-negative integer).            | 4 bytes            |
+| **scriptSig length**        | Length of the scriptSig**, encoded as a VarInt (variable length integer). | 1 - 9 bytes        |
+| **scriptSig**   | The scriptSig that provides a valid solution to the previous output's locking script. | `<in-scriptSig length>` bytes |
+| **Input Finalizer** |      The input is final when nSequence = 0xFFFFFFFF. | 4 bytes            |
+
+_TXID*: acronym Transaction ID_   
+_scriptSig**: AKA input script_   
+_Input Finalizer***: AKA Sequence_no_   
+
+### Format of a Transaction Output (TXOUT)
+
+| Field                    | Description                                                                           | Size                |
+|---------------------------|---------------------------------------------------------------------------------------|---------------------|
+| **value**                 | Non-negative integer representing the number of satoshis to be transferred.            | 8 bytes             |
+| **scriptPubKey length**    | Length of the scriptPubKey*, encoded as a VarInt (variable length integer). | 1 - 9 bytes         |
+| **scriptPubKey** | Defines the conditions under which the output can be spent. | `<scriptPubKey length>` bytes |
+
+_scriptPubKey*: AKA Txout-script_  
+
+About the scriptPubKey part:
+1. The puzzle is created, which is usually a digital signature. It doesn't necessarily have to be a digital signature, it could be something like a simple addition operation or even left open(mostly for educational purposes).   
+2. At this point, it is also possible to include the recipient's address.
