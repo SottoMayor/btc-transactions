@@ -100,6 +100,20 @@ _Input Finalizer***: AKA Sequence_no_
 
 _scriptPubKey*: AKA Txout-script_  
 
-About the scriptPubKey part:
+**About the scriptPubKey part:**
 1. The puzzle is created, which is usually a digital signature. It doesn't necessarily have to be a digital signature, it could be something like a simple addition operation or even left open(mostly for educational purposes).   
 2. At this point, it is also possible to include the recipient's address.
+
+**About the changes:**   
+Whenever an input is larger than the value to be sent, it is important to provide a change output so that the remaining value is properly allocated. 
+
+For example, if the user has an input of 0.05 BTC and wants to send only 0.02 BTC to someone, the transaction will have two outputs:
+
+- One output of 0.02 BTC to the recipient.
+- One output of 0.03 BTC (the change) back to the user.
+
+### Notes:
+1. **Numbers are expressed in Hexadecimal**.
+2. **TXID is expressed in Little Endian**.
+3. **Transaction values are expressed in Satoshis** (HEX, as per item 1.).
+4. **Miner fee**: The difference between the total of the outputs and the total of the inputs, included indirectly in the transaction.
